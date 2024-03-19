@@ -2,8 +2,9 @@ from pathlib import Path
 
 path = Path.cwd()
 
+
 def readfile():
-    perkfile = str(path) + "/skill-info.txt"
+    perkfile = path / "skill-info.txt"
     file = open(perkfile, "r")
     fullList = []
     skillEntry = None  # Initialize skillEntry to None

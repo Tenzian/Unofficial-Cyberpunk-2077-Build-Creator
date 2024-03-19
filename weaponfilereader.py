@@ -1,6 +1,7 @@
 from pathlib import Path
 path = Path.cwd()
 
+
 def readfile(filename):
     if filename in "bladeblunt":
         weapons = readmeleefile(filename)
@@ -10,8 +11,9 @@ def readfile(filename):
         weapons = readrangedfile(filename)
     return weapons
 
+
 def readrangedfile(filename1):
-    perkfile = str(path) + "\equipmentFiles" + f"\{filename1}" + ".txt"
+    perkfile = path / 'equipmentFiles' / (filename1 + '.txt')
     file = open(perkfile, "r")
     weapons = []
     index = 0
@@ -41,6 +43,7 @@ def readrangedfile(filename1):
     file.close()
     return weapons
                 
+
 class rangedWeapon():
     def __init__(self, name, type, iconic, intrinsic, actEff, condition, firerate, damage, reloadSpeed, range, handling, magSize, headshot, armorPen, weaponType, index):
         self.name = name
@@ -82,12 +85,8 @@ class rangedWeapon():
         return f"{self.weaponType}&{self.name}&{self.type}"
     
 
-
-from pathlib import Path
-path = Path.cwd()
-
 def readmeleefile(filename):
-    perkfile = str(path) + "\equipmentFiles" + f"\{filename}" + ".txt"
+    perkfile = path / "equipmentFiles" / (filename + ".txt")
     file = open(perkfile, "r")
     weapons = []
     index = 0
@@ -113,6 +112,7 @@ def readmeleefile(filename):
     file.close()
     return weapons
                 
+
 class meleeWeapon():
     def __init__(self, name, type, iconic, intrinsic, actEff, condition, firerate, damage, staminaCost, armorPen, weaponType, index):
         self.name = name
@@ -151,7 +151,7 @@ class meleeWeapon():
     
 
 def readthrowablefile(filename):
-    perkfile = str(path) + "\equipmentFiles" + f"\{filename}" + ".txt"
+    perkfile = path / "equipmentFiles" / (filename + ".txt")
     file = open(perkfile, "r")
     weapons = []
     index = 0
@@ -180,6 +180,7 @@ def readthrowablefile(filename):
     file.close()
     return weapons
                 
+
 class throwableWeapon():
     def __init__(self, name, type, iconic, intrinsic, actEff, condition, firerate, damage, range, staminaCost, returnTime, headshot, armorPen, weaponType, index):
         self.name = name

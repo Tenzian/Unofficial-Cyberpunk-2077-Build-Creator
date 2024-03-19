@@ -19,9 +19,8 @@ import os
 
 # FIX THIS TO GET A PROPER PATH FOR ALL USERS (do at the end, maybe .exe will fix it all (probably not but well see))
 path = Path.cwd()
-PATH = Path.cwd()
-FILE_LIST = os.listdir(f"{path}/Saves/")
-imagespath = str(path) + "/images/"
+FILE_LIST = os.listdir(f"{path / 'Saves'}")
+imagespath = path / 'images'
 app = QApplication(sys.argv)
 
 global_attributes = {
@@ -33,15 +32,15 @@ global_attributes = {
     "TOTAL": 66
 }
 
-headerfontid = QFontDatabase.addApplicationFont(fr"{path}\SAIBA-45.ttf")
+headerfontid = QFontDatabase.addApplicationFont(f"{path / 'SAIBA-45.ttf'}")
 HEADERFONT = QFont(QFontDatabase.applicationFontFamilies(headerfontid)[0])
 HEADERFONT.setPointSize(20)
 
-numfontid = QFontDatabase.addApplicationFont(fr"{path}\GlitchGoblin-2O87v.ttf")
+numfontid = QFontDatabase.addApplicationFont(f"{path / 'GlitchGoblin-2O87v.ttf'}")
 NUMFONT = QFont(QFontDatabase.applicationFontFamilies(numfontid)[0])
 NUMFONT.setPointSize(30)
 
-textfontid = QFontDatabase.addApplicationFont(fr"{path}\Play-Regular.ttf")
+textfontid = QFontDatabase.addApplicationFont(f"{path / 'Play-Regular.ttf'}")
 TEXTFONT = QFont(QFontDatabase.applicationFontFamilies(textfontid)[0])
 TEXTFONT.setPointSize(10)
 
@@ -144,7 +143,7 @@ class MainWindow(QMainWindow):
         palette.setColor(QPalette.Window, QColor(19,9,12))  # Adjust RGB values as needed
         self.setPalette(palette)
         self.setWindowTitle("Unofficial, Fanmade Build Creator for Cyberpunk 2077")
-        self.setWindowIcon(QIcon(imagespath + "titlepic.png"))
+        self.setWindowIcon(QIcon(f"{imagespath / 'titlepic.png'}"))
         self.resize(QSize(1920, 1080))
         self.setWindowFlags(Qt.Window | Qt.WindowTitleHint | Qt.WindowMinimizeButtonHint | Qt.WindowCloseButtonHint | Qt.WindowMaximizeButtonHint)
         self.showMaximized()
@@ -225,28 +224,27 @@ class MainWindow(QMainWindow):
         self.copyCodeAction.triggered.connect(self.save)
 
         # Tool bar actions
-        self.attributeAction = QAction(QIcon(imagespath + "attribute-icon.png"), "Attributes", self)
+        self.attributeAction = QAction(QIcon(f"{imagespath / 'attribute-icon.png'}"), "Attributes", self)
         self.attributeAction.setIconText(" Attributes")
         self.attributeAction.setFont(HEADERFONT)
         self.attributeAction.triggered.connect(self.attributeScreen)
 
-        self.cyberwareAction = QAction(QIcon(imagespath + "cyberware-icon.png"), "Cyberware", self)
+        self.cyberwareAction = QAction(QIcon(f"{imagespath / 'cyberware-icon.png'}"), "Cyberware", self)
         self.cyberwareAction.setIconText(" Cyberware")
         self.cyberwareAction.setFont(HEADERFONT)
         self.cyberwareAction.triggered.connect(self.cyberwareScreen)
 
-        self.equipmentAction = QAction(QIcon(imagespath + "equipment-icon.png"), "Equipment", self)
+        self.equipmentAction = QAction(QIcon(f"{imagespath / 'equipment-icon.png'}"), "Equipment", self)
         self.equipmentAction.setIconText(" Equipment")
         self.equipmentAction.setFont(HEADERFONT)
         self.equipmentAction.triggered.connect(self.equipmentScreen)
 
-        self.statsAction = QAction(QIcon(imagespath + "stat-icon.png"), "Stats", self)
+        self.statsAction = QAction(QIcon(f"{imagespath / 'stat-icon.png'}"), "Stats", self)
         self.statsAction.setIconText(" Stats Overview")
         self.statsAction.setFont(HEADERFONT)
         self.statsAction.triggered.connect(self.statScreen)
 
-
-                                                                                # ATTRIBUTES
+        # ATTRIBUTES
         # THE SCREEN USED FOR THE ATTRIBUTE SELECTION
     def attributeScreen(self):
         attrWidget = QWidget(self)
@@ -364,7 +362,7 @@ class MainWindow(QMainWindow):
             screen = self.attributeScreen()
 
         bottomWidget = QPushButton()
-        icon = QIcon(imagespath+"perk-points.png")
+        icon = QIcon(f"{imagespath / 'perk-points.png'}")
         bottomWidget.setIcon(icon)
         bottomWidget.setIconSize(QSize(150,40))
         bottomWidget.clicked.connect(functools.partial(screen))
@@ -411,7 +409,7 @@ class MainWindow(QMainWindow):
 
         # ADDS AN IMAGE TO A WIDGET
     def addImageToWidget(self, widget, imageName):
-        pixmap = QPixmap(imagespath + imageName)
+        pixmap = QPixmap(f"{imagespath / imageName}")
         label = QLabel()
         label.setPixmap(pixmap)
         label.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
@@ -801,7 +799,7 @@ class MainWindow(QMainWindow):
         cyberwareMidWidget = QVBoxLayout()
         cyberwareMiddle = QLabel()
         cyberwareMiddle.setContentsMargins(0,0,0,0)
-        icon = QIcon(imagespath + "edgerunner-upscaled.png")
+        icon = QIcon(f"{imagespath / 'edgerunner-upscaled.png'}")
         windowSize = WINDOW.size()
         cyberwareMiddle.setPixmap(icon.pixmap(int(windowSize.width()/4.5), windowSize.height()))
         cyberwareMiddle.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter) 
@@ -907,7 +905,7 @@ class MainWindow(QMainWindow):
                 for preselect in preselected:
                     if preselect.filename == file and preselect.name not in alreadyEntered:
                         button = QPushButton()
-                        icon = QIcon(f"{imagespath}cyberware/{preselect.imgname}")
+                        icon = QIcon(f"{imagespath / 'Cyberware' / preselect.imgname}")
                         button.setIcon(icon)
                         windowSize = WINDOW.size()
                         iconSize = QSize(int(windowSize.width() / 14), int(windowSize.width() / 14))
@@ -977,7 +975,7 @@ class MainWindow(QMainWindow):
                 if buttonFound != True:
                     # Create buttons for non-preselected cyberware
                     button = QPushButton()
-                    icon = QIcon(f"{imagespath}cyberware/cyberwareicon")
+                    icon = QIcon(f"{imagespath / 'Cyberware' / 'cyberwareicon.png'}")
                     button.setIcon(icon)
                     buttonSize = button.size()
                     button.setIconSize(QSize(int(buttonSize.width()*0.9), int(buttonSize.height()*0.9)))
@@ -1023,7 +1021,7 @@ class MainWindow(QMainWindow):
         for cyberware in cyberwareList:
             CWlayout = QHBoxLayout()
             imageButton = QPushButton()
-            icon = QIcon(f"{imagespath}cyberware/{cyberware.imgname}")
+            icon = QIcon(f"{imagespath / 'Cyberware' / cyberware.imgname}")
             imageButton.setIcon(icon)
             imageButton.setIconSize(QSize(150,150))
             imageButton.setFixedSize(QSize(150,150))
@@ -1122,7 +1120,7 @@ class MainWindow(QMainWindow):
                         if i == item[3]:
                             ACTIVECYBERWARE.remove(i)
                     item[3] = cyberware
-                    icon = QIcon(f"{imagespath}cyberware/{item[3].imgname}")
+                    icon = QIcon(f"{imagespath / 'Cyberware' / item[3].imgname}")
                     button.setIcon(icon)
                     buttonSize = button.size()
                     button.setIconSize(QSize(int(buttonSize.width()*0.9), int(buttonSize.height()*0.9)))
@@ -1352,11 +1350,11 @@ class MainWindow(QMainWindow):
 
         iconButton = QPushButton()
         if weapon == None:
-            weaponIcon = QIcon(f"{imagespath}weapon-icon.png")
+            weaponIcon = QIcon(f"{imagespath / 'weapon-icon.png'}")
             weaponElem = weaponfilereader.readfile("Empty Weapon")
             weapon = weaponElem[0]
         else:
-            weaponIcon = QIcon(f"{imagespath}weapons/{weapon.imgname}.png")
+            weaponIcon = QIcon(f"{imagespath / 'weapons' / weapon.imgname}")
         iconButton.setFixedSize(QSize(int(windowWidth/9.5),200))
         iconButton.setIcon(weaponIcon)
         iconButton.setToolTip(f"<font color = #ffffff>{weapon.name}")
@@ -1652,7 +1650,7 @@ class MainWindow(QMainWindow):
         for weapon in sortedWeapons:
             WLayout = QHBoxLayout()
             imgButton = QPushButton()
-            icon = QIcon(f"{imagespath}weapons/{weapon.imgname}")
+            icon = QIcon(f"{imagespath / 'weapons' / weapon.imgname}")
             imgButton.setIcon(icon)
             imgButton.setIconSize(QSize(200,200))
             imgButton.setFixedSize(QSize(200,200))
@@ -2262,7 +2260,7 @@ class MainWindow(QMainWindow):
         for cyberware in ACTIVECYBERWARE:
             cyberwareLabel = QLabel()
             cyberwareLabel.setContentsMargins(0,0,0,0)
-            pixmap = QPixmap(f"{imagespath}/cyberware/{cyberware.imgname}")
+            pixmap = QPixmap(f"{imagespath / 'Cyberware' / cyberware.imgname}")
 
             pixmap = pixmap.scaled(imgSize, imgSize)
             cyberwareLabel.setPixmap(pixmap)
@@ -2431,7 +2429,7 @@ class MainWindow(QMainWindow):
 
             mainInfoLayout = QVBoxLayout()
             imgButton = QPushButton()
-            icon = QIcon(f"{imagespath}weapons/{w.imgname}")
+            icon = QIcon(f"{imagespath / 'weapons' / w.imgname}")
             imgButton.setIcon(icon)
             imgButton.setIconSize(QSize(200,200))
             imgButton.setFixedSize(QSize(200,200))
@@ -3681,19 +3679,18 @@ class MainWindow(QMainWindow):
     def openFile(self):
         dialog = MyDialog()
         okPressed = dialog.exec_()
-        okPressed = dialog.exec_()
         if okPressed == QInputDialog.Accepted:
             num = dialog.intValue()
             if num == 0 or len(FILE_LIST) == 0:
                 code = "B30/3v/R30/7v/T30/3v/I30/7v/C30/7v/-000000000000000000000-000000"
             else:
                 if len(FILE_LIST) > num:
-                    chosenFile = open(f"{PATH}\Saves\{FILE_LIST[num-1]}", "r")
+                    chosenFile = open(path / 'Saves' / FILE_LIST[num - 1], "r")
                     code = chosenFile.readline().strip()
                     print(code)
                     chosenFile.close()
                 else:
-                    chosenFile = open(f"{PATH}\Saves\{FILE_LIST[len(FILE_LIST)-1]}", "r")
+                    chosenFile = open(path / 'Saves' / FILE_LIST[num - 1], "r")
                     code = chosenFile.readline().strip()
                     print(code)
                     chosenFile.close()
@@ -3706,10 +3703,9 @@ class MyDialog(QInputDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Open File")
-        self.setWindowIcon(QIcon(imagespath + "titlepic.png"))
+        self.setWindowIcon(QIcon(f"{imagespath / 'titlepic.png'}"))
         string = "0. New File\n"
         c = 1
-        FILE_LIST = os.listdir(f"{PATH}/Saves/") 
         for file in FILE_LIST:
             string += f"{c}. {file[:-4]}\n"
             c += 1

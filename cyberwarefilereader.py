@@ -1,8 +1,9 @@
 from pathlib import Path
 path = Path.cwd()
 
+
 def readfile(filename):
-    perkfile = str(path) + "/cyberware files/" + filename
+    perkfile = path / "cyberware files" / filename
     file = open(perkfile, "r")
     cyberware = []
     index = 0
@@ -60,7 +61,8 @@ def readfile(filename):
             index += 1
     file.close()
     return cyberware
-                
+
+
 class regularCyberware():
     def __init__(self, name, cost, pasEff, actEff, condition, description, armor, attunement, filename, index):
         self.name = name
@@ -205,6 +207,7 @@ class cyberdeckCyberware():
     
     def __repr__(self):
         return f"{self.name}&{self.cost}&{self.ram}&{self.QHslots}&{self.buffer}&{self.armor}&{self.description}"
+
     
 class armCyberware():
     def __init__(self, name, cost, affectedBy, dmgType, description, filename, index):

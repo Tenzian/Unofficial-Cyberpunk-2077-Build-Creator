@@ -1,8 +1,9 @@
 from pathlib import Path
 path = Path.cwd()
 
+
 def readfile(filename):
-    perkfile = str(path) + "/perkFiles/" + filename
+    perkfile = path / "perkFiles" / filename
     file = open(perkfile, "r")
     allperks = []
     while True:

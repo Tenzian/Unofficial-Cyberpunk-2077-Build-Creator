@@ -1,8 +1,9 @@
 from pathlib import Path
 path = Path.cwd()
 
+
 def readfile(filename):
-    perkfile = str(path) + "\equipmentFiles" + f"\{filename}" + ".txt"
+    perkfile = path / "equipmentFiles" / (filename + ".txt")
     file = open(perkfile, "r")
     weapons = []
 
@@ -27,6 +28,7 @@ def readfile(filename):
             weapons.append(entry)
     return weapons
                 
+
 class weapon():
     def __init__(self, name, type, iconic, intrinsic, actEff, condition, firerate, damage, staminaCost, armorPen, weaponType):
         self.name = name
